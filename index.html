@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <meta name="description" content="An advanced Compound Interest Calculator that allows you to compute compound interest with various currencies and time periods.">
+    <meta name="keywords" content="Compound Interest, Interest Calculator, Financial Calculator, Currency, Investment">
+    <meta name="author" content="Piyush meena">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: radial-gradient(circle, #ff00ff, #0000ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            overflow: hidden;
+            animation: backgroundShift 8s infinite alternate;
+        }
+        @keyframes backgroundShift {
+            0% { background: radial-gradient(circle, #ff00ff, #0000ff); }
+            25% { background: radial-gradient(circle, #00ff00, #ff0000); }
+            50% { background: radial-gradient(circle, #ff9900, #00ffff); }
+            75% { background: radial-gradient(circle, #6600ff, #ff0066); }
+            100% { background: radial-gradient(circle, #0000ff, #ff00ff); }
+        }
+        .container {
+            background: rgba(30, 30, 30, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 50px rgba(255, 0, 255, 0.8);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            animation: glowEffect 1.5s infinite alternate;
+            border: 3px solid #ff00ff;
+            margin-top: 20px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(50, 50, 50, 0.8);
+            border-radius: 10px;
+            box-shadow: inset 0px 0px 10px rgba(255, 0, 255, 0.5);
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: rgba(20, 20, 20, 0.8);
+            color: #fff;
+            text-align: center;
+        }
+        button {
+            background: #ff00ff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #00ffff;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ff00;
+        }
+        @keyframes glowEffect {
+            0% { box-shadow: 0px 0px 20px rgba(255, 0, 255, 0.5); }
+            50% { box-shadow: 0px 0px 40px rgba(0, 255, 255, 1); }
+            100% { box-shadow: 0px 0px 20px rgba(255, 0, 255, 0.5); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Ads -->
+    <div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    
+    <div class="container">
+        <h2>Compound Interest Calculator</h2>
+        <div class="input-group">
+            <label for="principal">Principal Amount:</label>
+            <input type="number" id="principal" required>
+            <select id="currency">
+                <option value="₹">INR (₹)</option>
+                <option value="$">USD ($)</option>
+                <option value="€">Euro (€)</option>
+                <option value="£">GBP (£)</option>
+                <option value="¥">JPY (¥)</option>
+                <option value="₩">KRW (₩)</option>
+                <option value="₽">RUB (₽)</option>
+                <option value="C$">CAD (C$)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="rate">Annual Interest Rate (%):</label>
+            <input type="number" id="rate" required>
+        </div>
+        <div class="input-group">
+            <label for="time">Time (years):</label>
+            <input type="number" id="time" required>
+        </div>
+        <button onclick="calculateCompoundInterest()">Calculate</button>
+        <div id="result" class="result"></div>
+    </div>
+    
+    <!-- Google Ads -->
+    <div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    
+    <script>
+        function calculateCompoundInterest() {
+            let principal = parseFloat(document.getElementById("principal").value);
+            let rate = parseFloat(document.getElementById("rate").value);
+            let time = parseFloat(document.getElementById("time").value);
+            let currency = document.getElementById("currency").value;
+            
+            if (isNaN(principal) || isNaN(rate) || isNaN(time) || principal <= 0 || rate <= 0 || time <= 0) {
+                document.getElementById("result").innerHTML = "Please enter valid values.";
+                return;
+            }
+            
+            let amount = principal * Math.pow((1 + rate / 100), time);
+            let compoundInterest = amount - principal;
+            
+            document.getElementById("result").innerHTML = `Principal Amount: ${currency} ${principal.toFixed(2)}<br>Total Amount: ${currency} ${amount.toFixed(2)} <br> Compound Interest: ${currency} ${compoundInterest.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
